@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Official Marketplace - Pi App</title>
+    
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
+    <style>
+        body { font-family: sans-serif; padding: 20px; text-align: center; background-color: #f5f5f5; }
+        .container { background: white; max-width: 400px; margin: 0 auto; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #612F74; } /* Warna Khas Pi */
+        button { background-color: #F8A036; border: none; padding: 10px 20px; color: white; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 10px; width: 100%; }
+        button:hover { background-color: #e08e2b; }
+        .hidden { display: none; }
+        #user-info { margin-top: 20px; padding: 10px; background: #eee; border-radius: 5px; text-align: left; }
+        .product-card { border: 1px solid #ddd; padding: 10px; margin-top: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>CTF Marketplace</h1>
+    <p>Selamat datang di Demo Toko Pi</p>
+
+    <div id="login-section">
+        <p>Silakan login untuk berbelanja.</p>
+        <button onclick="loginPi()">Login dengan Pi</button>
+    </div>
+
+    <div id="shop-section" class="hidden">
+        <div id="user-info">
+            <p><strong>Username:</strong> <span id="username">...</span></p>
+            <p><strong>User ID:</strong> <span id="uid">...</span></p>
+        </div>
+
+        <div class="product-card">
+            <h3>Produk Demo: Pisang Molen</h3>
+            <p>Harga: <strong>1 TEST-Pi</strong></p>
+            <button onclick="startPayment()">Beli Sekarang (1 Pi)</button>
+        </div>
+        
+        <p id="status-msg" style="margin-top:10px; color:blue;"></p>
+    </div>
+</div>
+
+<script>
+    // 2. Inisialisasi SDK
+    // Penting: 'sandbox: true' digunakan saat pengembangan (Testnet)
+    Pi.init({ version: "2.0", sandbox: true });
+
+    // Fungsi Login / Autentikasi
+    async function loginPi() {
+        try {
+            // Meminta izin user (scope) untuk username dan pembayaran
+            const scopes = ['username', 'payments'];
+            const authResults = await Pi.authenticate(scopes, onIncompletePaymentFound);
+
+            // Jika sukses, tampilkan data user
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('shop-section').classList.remove('hidden');
+            document.getElementById('username').innerText = authResults.user.username;
+            document.getElementById('uid').innerText = authResults.user.uid;
+            
+            console.log("Login Sukses:", authResults);
+        } catch (err) {
+            alert("Login Gagal: " + err);
+            console.error(err);
+        }
+    }
+
+    // Fungsi Pembayaran
+    async function startPayment() {
+        const paymentData = {
+            amount: 1, // Harga 1 Pi (Testnet)
+            memo: "Pembelian Pisang Molen CTF", // Catatan transaksi
+            metadata: { productId: "molen-001" } // Data internal developer
+        };
+
+        const callbacks = {
+            // a. Persiapan Server (Developer harus hit API Pi untuk 'Approve')
+            onReadyForServerApproval: function(paymentId) {
+                document.getElementById('status-msg').innerText = "Menunggu persetujuan server...";
+                console.log("Payment ID:", paymentId);
+                
+                // CATATAN PENTING:
+                // Di sini Anda harus mengirim paymentId ke Server Backend Anda sendiri via AJAX/Fetch.
+                // Server Anda kemudian harus memanggil API Pi Network (/v2/payments/{paymentId}/approve).
+                // Karena ini hanya demo frontend, proses akan berhenti di sini.
+                alert("Proses frontend selesai. Backend diperlukan untuk memvalidasi transaksi ini.");
+            },
+            
+            // b. Ketika server sudah approve dan user sudah konfirmasi di Wallet
+            onServerApproval: function(paymentId) {
+                console.log("Server approved, user paid.");
+                // Disini backend Anda memanggil /complete
+            },
+            
+            // c. Jika transaksi dibatalkan user
+            onCancel: function(paymentId) {
+                document.getElementById('status-msg').innerText = "Transaksi dibatalkan.";
+            },
+            
+            // d. Jika ada error
+            onError: function(error, payment) {
+                console.error("Payment Error:", error);
+                document.getElementById('status-msg').innerText = "Error: " + error.message;
+            }
+        };
+
+        // Memulai flow pembayaran
+        try {
+            await Pi.createPayment(paymentData, callbacks);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    // Fungsi wajib: Menangani pembayaran yang terputus di tengah jalan
+    function onIncompletePaymentFound(payment) {
+        console.log("Ditemukan pembayaran belum selesai:", payment);
+        // Logika untuk menyelesaikan pembayaran yang tertunda bisa ditaruh sini
+        // Biasanya mengirim paymentId ke server untuk di cek ulang
+        return Pi.createPayment(payment, {
+             onReadyForServerApproval: (paymentId) => { /* logic sama seperti diatas */ },
+             onServerApproval: (paymentId) => { /* logic sama seperti diatas */ },
+             onCancel: (paymentId) => { /* logic sama seperti diatas */ },
+             onError: (error, payment) => { /* logic sama seperti diatas */ }
+        });
+    }
+</script>
+
+</body>
+</html>
