@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran Pi</title>
+
+    <!-- Pi SDK -->
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #log {
+            background: #f4f4f4; padding: 10px; margin-top: 15px;
+            border-radius: 5px; white-space: pre-line; min-height: 100px;
+        }
+        button {
+            padding: 12px 20px; background: #6c41e2; color: white;
+            border: none; border-radius: 7px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Pembayaran Pi</h2>
+
+<button id="payPiBtn">Bayar dengan Pi</button>
+
+<div id="log">Menunggu log...</div>
+
+<br>
+<a href="index.html">⬅ Kembali ke Login</a>
+
+<script>
+const logBox = document.getElementById("log");
+function log(msg) { logBox.textContent += "\n" + msg; }
+
+// INIT SDK
+Pi.init({
+    version: "2.0",
+    network: "testnet",
+    apiKey: "pi_live_hokwpb4aevvfapb3ddy4nyxvoq5kumszrlizzcrmd7c7nbs6xfuqn6pbykz3qime"
+});
+
+log("✔ Pi SDK terbaca.");
+
+// 🔥 AMBIL LOGIN USER DARI LOCALSTORAGE
+const auth = JSON.parse(localStorage.getItem("pi_auth") || "{}");
+
+if (!auth.user) {
+    log("❌ ERROR: Kamu belum login. Silakan login di halaman sebelumnya.");
+}
+
+// ---- PAYMENT FUNCTION ----
+document.getElementById("payPiBtn").onclick = async () => {
+
+    log("Tombol Bayar diklik → membuat pembayaran...");
+
+    try {
+        const payment = await Pi.createPayment({
+            amount: 1,
+            memo: "Pembayaran Test Pi",
+            metadata: { orderId: "123456" },
+
+            // 🔥 DATA USER WAJIB DIISI
+            uid: auth.user.uid,
+            username: auth.user.username
+        });
+
+        log("➡ Payment dibuat, menunggu approval...");
+
+        payment.on("pending",  () => log("Status: PENDING"));
+        payment.on("completed", () => log("✔ COMPLETED – Pembayaran sukses!"));
+        payment.on("cancelled", () => log("❌ CANCELLED oleh user"));
+        payment.on("error", err => log("❌ ERROR: " + err));
+
+    } catch (err) {
+        log("❌ Gagal membuat pembayaran: " + err);
+    }
+};
+</script>
+
+</body>
+</html>
