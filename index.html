@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CTF Corporation</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="./assets/css/main.css">
+<link rel="stylesheet" href="./assets/css/elementor.css">
+<link rel="stylesheet" href="./assets/css/fix.css">
+
+<!-- PI SDK -->
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+<script src="./assets/js/pi-init.js" defer></script>
+</head>
+
+<body>
+
+<header>
+  <!DOCTYPE html> <html lang="id"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title></title> <style> body { margin: 0; font-family: Arial, sans-serif; background: #111; color: white; overflow-x: hidden; } /* HERO SECTION */ .hero { height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; padding-top: 65px; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1600607688969-a5bfcd646154?q=80&w=2000') center/cover fixed; } .hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 10px; color: #FFD700; max-width: 900px; } .hero p { font-size: 20px; opacity: 0.9; max-width: 900px; margin: 0 auto 30px auto; line-height: 1.5; } .house-3d-wrapper { perspective: 1200px; margin-top: 20px; } .house-3d { width: 350px; height: 220px; position: relative; transform-style: preserve-3d; animation: rotateHouse 15s infinite linear; } /* NON INTERACTIVE IMAGES */ .house-3d img { position: absolute; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); filter: drop-shadow(0 0 15px rgba(255,215,0,0.4)); transition: 0.3s; pointer-events: none; } .side-front { transform: rotateY(0deg) translateZ(150px); } .side-back { transform: rotateY(180deg) translateZ(150px); } .side-right { transform: rotateY(-90deg) translateZ(150px); } .side-left { transform: rotateY(90deg) translateZ(150px); } @keyframes rotateHouse { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } } @media (max-width: 600px) { .hero h1 { font-size: 32px; } .hero p { font-size: 16px; } .house-3d { width: 250px; height: 160px; } } .cta-buttons { margin-top: 25px; display: flex; gap: 15px; justify-content: center; } .btn { padding: 12px 24px; border-radius: 8px; font-size: 18px; font-weight: bold; text-decoration: none; transition: 0.3s; } .btn-wa { background: #25D366; color: white; } .btn-project { background: #FFD700; color: black; } .btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(255,255,255,0.5); } .house-3d-wrapper:hover .house-3d { animation: rotateHouse 15s infinite linear; transform: none; } .elementor-background-3d { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.25; filter: blur(3px); z-index: -1; background: url('https://images.unsplash.com/photo-1600607688969-a5bfcd646154?q=80') center/cover; } /* MODERN CORPORATE BUILDING (OPTIONAL IMAGE) */ .corporate-building { display: none; } </style> </head> <body> <section class="hero"> <h1>Rumah Mewah Impian Anda</h1> <p>Selamat datang di era baru properti! Miliki hunian mewah 800m² dengan cara revolusioner: kami menerima Pi Coin sebagai metode pembayaran. Ini adalah integrasi nyata antara teknologi Pi Network dan real estate premium. Transaksi ini bukan hanya investasi pribadi, tetapi juga memiliki dampak sosial positif. Amankan aset masa depan Anda bersama Pi Network.</p> <div class="house-3d-wrapper"> <div class="house-3d"> <img class="side-front" src="https://ctfofficial.com/wp-content/uploads/2025/11/ctf-home.jpeg" /> <img class="side-back" src="https://ctfofficial.com/wp-content/uploads/2025/11/ctf-townhouse.jpg" /> <img class="side-right" src="https://ctfofficial.com/wp-content/uploads/2025/11/ctf-villa.jpg" /> <img class="side-left" src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80" /> </div> </div> <!-- CTA BUTTONS --> <div class="cta-buttons"> <a href="https://wa.me/62882003515840" class="btn btn-wa">Hubungi Kami</a> <a href="https://ctfofficial.com/projects/#" class="btn btn-project">Lihat Project</a> </div> </section> </body> </html>
+</header>
+
+<main>
+  <section class="about-section">
+  <div class="about-container">
+
+    <div class="about-slider">
+      <div class="slide active">
+        <img src="https://ctfofficial.com/wp-content/uploads/2025/11/ctf-home.jpeg">
+      </div>
+      <div class="slide">
+        <img src="https://ctfofficial.com/wp-content/uploads/2025/11/ctf-villa.jpg">
+      </div>
+      <div class="slide">
+        <img src="https://ctfofficial.com/wp-content/uploads/2025/11/ctf-townhouse.jpg">
+      </div>
+      <div class="slide">
+        <img src="https://ctfofficial.com/wp-content/uploads/2025/11/project-jasa-arsitek-5.webp">
+      </div>
+    </div>
+
+    <div class="about-text">
+      <h2>Tentang Kami</h2>
+      <p>
+        Kami adalah perusahaan pengembang properti modern yang menggabungkan teknologi digital 
+        dengan real estate premium. Menghadirkan hunian mewah, inovatif, dan bernilai investasi tinggi.
+      </p>
+      <p>
+        Dengan pengalaman lebih dari 10 tahun, kami menghadirkan hunian bernilai masa depan 
+        yang elegan, aman, dan memiliki desain futuristik.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.about-section {
+  width: 100%;
+  padding: 0px 20px 80px 20px; /* padding top = 0 */
+  background: transparent !important;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.about-container {
+  display: flex;
+  max-width: 1200px;
+  gap: 50px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0;
+}
+
+.about-slider {
+  width: 380px;
+  height: 380px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(255,255,255,0.15);
+  animation: float3D 6s ease-in-out infinite;
+  background: transparent;
+  margin-top: 0; /* hilangkan ruang */
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.4s ease, transform 1.4s ease;
+  transform: scale(1.1) rotateY(15deg);
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1) rotateY(0deg);
+}
+
+@keyframes float3D {
+  0%   { transform: translateY(0px) rotateX(0deg); }
+  50%  { transform: translateY(-15px) rotateX(6deg); }
+  100% { transform: translateY(0px) rotateX(0deg); }
+}
+
+/* TEXT */
+.about-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.about-text h2 {
+  font-size: 42px;
+  margin: 0 0 10px 0;
+  color: #FFD700;
+}
+
+.about-text p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+@media (max-width: 900px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .about-slider {
+    width: 100%;
+    height: 300px;
+  }
+}
+</style>
+
+<script>
+let slides = document.querySelectorAll(".slide");
+let index = 0;
+
+setInterval(() => {
+  slides[index].classList.remove("active");
+  index = (index + 1) % slides.length;
+  slides[index].classList.add("active");
+}, 3000);
+</script>
+
+</main>
+
+<footer>
+  <!-- COPY FOOTER -->
+</footer>
+
+<!-- JS -->
+<script src="./assets/js/main.js"></script>
+<script src="./assets/js/elementor.js"></script>
+
+</body>
+</html>
